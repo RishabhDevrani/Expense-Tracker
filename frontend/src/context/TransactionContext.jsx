@@ -10,10 +10,17 @@ export const TransactionProvider = ({ children }) => {
   const [transactions, setTransactions] = useState([]);
   const [loading, setLoading] = useState(false);
 
+  const API_URL=import.meta.env.VITE_API_URL;
+  
+
   const fetchTransactions = useCallback(async () => {
     setLoading(true);
     try {
+<<<<<<< HEAD
       const { data } = await axios.get('https://expense-tracker-9d3r.onrender.com/api/transactions');
+=======
+      const { data } = await axios.get(`${API_URL}/api/transactions`);
+>>>>>>> d84f22e (Changes)
       setTransactions(data);
     } catch (error) {
       console.error("Error fetching transactions", error);
@@ -30,7 +37,7 @@ export const TransactionProvider = ({ children }) => {
 
   const addTransaction = async (transaction) => {
     try {
-      const { data } = await axios.post('http://localhost:5000/api/transactions', transaction);
+      const { data } = await axios.post(`${API_URL}/api/transactions`, transaction);
       setTransactions([data, ...transactions]);
     } catch (error) {
       console.error("Error adding transaction", error);
@@ -39,7 +46,7 @@ export const TransactionProvider = ({ children }) => {
 
   const deleteTransaction = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/api/transactions/${id}`);
+      await axios.delete(`${API_URL}/api/transactions/${id}`);
       setTransactions(transactions.filter(t => t._id !== id));
     } catch (error) {
       console.error("Error deleting transaction", error);

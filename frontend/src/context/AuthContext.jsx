@@ -4,6 +4,8 @@ import axios from 'axios';
 
 export const AuthContext = createContext();
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 const getStoredUser = () => {
   const token = localStorage.getItem('token');
   const userData = localStorage.getItem('user');
@@ -23,7 +25,7 @@ export const AuthProvider = ({ children }) => {
   }, [user]);
 
   const login = async (email, password) => {
-    const { data } = await axios.post('http://localhost:5000/api/auth/login', { email, password });
+    const { data } = await axios.post(`${API_URL}/api/auth/login`, { email, password });
     localStorage.setItem('token', data.token);
     localStorage.setItem('user', JSON.stringify(data));
     axios.defaults.headers.common['Authorization'] = `Bearer ${data.token}`;
@@ -31,7 +33,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const register = async (name, email, password) => {
-    const { data } = await axios.post('http://localhost:5000/api/auth/register', { name, email, password });
+    const { data } = await axios.post(`${API_URL}/api/auth/register`, { name, email, password });
     localStorage.setItem('token', data.token);
     localStorage.setItem('user', JSON.stringify(data));
     axios.defaults.headers.common['Authorization'] = `Bearer ${data.token}`;
