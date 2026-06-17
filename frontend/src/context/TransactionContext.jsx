@@ -13,7 +13,7 @@ export const TransactionProvider = ({ children }) => {
   const fetchTransactions = useCallback(async () => {
     setLoading(true);
     try {
-      const { data } = await axios.get('https://expense-tracker-9d3r.onrender.com');
+      const { data } = await axios.get('https://expense-tracker-9d3r.onrender.com/api/transactions');
       setTransactions(data);
     } catch (error) {
       console.error("Error fetching transactions", error);
